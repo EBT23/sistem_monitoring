@@ -29,6 +29,7 @@
       <!-- RTL Css -->
       <link rel="stylesheet" href="{{ asset('assets/css/rtl.min.css') }}"/>
       
+     
       
   </head>
   <body class="  ">
@@ -255,6 +256,13 @@
     
     <!-- App Script -->
     <script src="{{ asset('assets/js/hope-ui.js') }}" defer></script>
-    
+  <script>
+    var myModal = document.getElementById('myModal')
+var myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', function () {
+  myInput.focus()
+})
+  </script>
   </body>
 </html>
