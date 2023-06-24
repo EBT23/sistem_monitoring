@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\api\ApiAllController;
+use App\Http\Controllers\api\ApiAuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/login', [ApiAuthController::class, 'login']);
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/logout', [ApiAuthController::class, 'logout']);
+    Route::get('/me', [ApiAuthController::class, 'me']);
+    Route::get('/provinsi', [ApiAllController::class, 'provinsi']);
+    Route::get('/kabupaten', [ApiAllController::class, 'kabupaten']);
+    Route::get('/kecamatan', [ApiAllController::class, 'kecamatan']);
+    Route::get('/komoditi', [ApiAllController::class, 'komoditi']);
+    Route::get('/status_pengusahaan_tanaman', [ApiAllController::class, 'status_pengusahaan_tanaman']);
+    Route::get('/tahun', [ApiAllController::class, 'tahun']);
+    Route::get('/semester', [ApiAllController::class, 'semester']);
+    Route::get('/rekapan', [ApiAllController::class, 'rekapan']);
+    
 });
