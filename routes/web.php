@@ -2,9 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\KabupatenController;
+use App\Http\Controllers\KecamatanController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SemesterController;
+use App\Http\Controllers\StatusPengusahaanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +47,32 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/add-kabupaten', [KabupatenController::class, 'add_kabupaten'])->name('add.kabupaten');
     Route::post('/updatekabupaten/{id}', [KabupatenController::class, 'update_kabupaten'])->name('update.kabupaten');
     Route::delete('/deletekabupaten/{id}', [KabupatenController::class, 'delete_kabupaten'])->name('delete.kabupaten');
+    
+    
+    Route::get('/kecamatan', [KecamatanController::class, 'index'])->name('kecamatan.index');
+    Route::post('/add-kecamatan', [KecamatanController::class, 'add_kecamatan'])->name('add.kecamatan');
+    Route::post('/updatekecamatan/{id}', [KecamatanController::class, 'update_kecamatan'])->name('update.kecamatan');
+    Route::delete('/deletekecamatan/{id}', [KecamatanController::class, 'delete_kecamatan'])->name('delete.kecamatan');
+    
+    Route::get('/status_pengusahaan', [StatusPengusahaanController::class, 'index'])->name('status_pengusahaan.index');
+    Route::post('/add-status_pengusahaan', [StatusPengusahaanController::class, 'add_status_pengusahaan'])->name('add.status_pengusahaan');
+    Route::post('/updatestatus_pengusahaan/{id}', [StatusPengusahaanController::class, 'update_status_pengusahaan'])->name('update.status_pengusahaan');
+    Route::delete('/deletestatus_pengusahaan/{id}', [StatusPengusahaanController::class, 'delete_status_pengusahaan'])->name('delete.status_pengusahaan');
+
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
+    Route::post('/add-user', [UserController::class, 'add_user'])->name('add.user');
+    Route::post('/updateuser/{id}', [UserController::class, 'update_user'])->name('update.user');
+    Route::delete('/deleteuser/{id}', [UserController::class, 'delete_user'])->name('delete.user');
+    
+    Route::get('/role', [RoleController::class, 'index'])->name('role.index');
+    Route::post('/add-role', [RoleController::class, 'add_role'])->name('add.role');
+    Route::post('/updaterole/{id}', [RoleController::class, 'update_role'])->name('update.role');
+    Route::delete('/deleterole/{id}', [RoleController::class, 'delete_role'])->name('delete.role');
+    
+    Route::get('/semester', [SemesterController::class, 'index'])->name('semester.index');
+    Route::post('/add-semester', [SemesterController::class, 'add_semester'])->name('add.semester');
+    Route::post('/updatesemester/{id}', [SemesterController::class, 'update_semester'])->name('update.semester');
+    Route::delete('/deletesemester/{id}', [SemesterController::class, 'delete_semester'])->name('delete.semester');
     
 
 });
