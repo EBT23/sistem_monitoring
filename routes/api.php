@@ -27,6 +27,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/status_pengusahaan_tanaman', [ApiAllController::class, 'status_pengusahaan_tanaman']);
     Route::get('/tahun', [ApiAllController::class, 'tahun']);
     Route::get('/semester', [ApiAllController::class, 'semester']);
-    Route::get('/rekapan', [ApiAllController::class, 'rekapan']);
-    
+    Route::get('/rekapan', [ApiAllController::class, 'rekapan']); 
+    Route::post('/tambah_rekapan', [ApiAllController::class, 'tambah_rekapan']); 
 });

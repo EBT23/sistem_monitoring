@@ -80,10 +80,9 @@ class ApiAllController extends Controller
         ->join('kecamatan', 'kecamatan.id', '=', 'rekapan.id_kecamatan')
         ->join('tahun', 'tahun.id', '=', 'rekapan.id_tahun')
         ->join('users', 'users.id', '=', 'rekapan.id_users')
-        ->join('semester', 'semester.id', '=', 'rekapan.id_semester')
         ->join('status_pengusahaan_tanaman', 'status_pengusahaan_tanaman.id', '=', 'komoditi.id_status_pengusahaan_tanaman')
         ->where('users.id', $id_user)
-        ->select('rekapan.*', 'status_pengusahaan_tanaman.status_pengusahaan_tanaman', 'komoditi.nama_komoditi', 'provinsi.nama_provinsi', 'kabupaten.nama_kabupaten', 'kecamatan.nama_kecamatan', 'tahun.tahun', 'semester.semester', 'users.fullname')
+        ->select('rekapan.*', 'status_pengusahaan_tanaman.status_pengusahaan_tanaman', 'komoditi.nama_komoditi', 'provinsi.nama_provinsi', 'kabupaten.nama_kabupaten', 'kecamatan.nama_kecamatan', 'tahun.tahun', 'users.fullname')
         ->get();
         return response()->json([
             'success' => true,
@@ -91,5 +90,95 @@ class ApiAllController extends Controller
             'data' => $rekapan
         ], Response::HTTP_OK);
     }
+    public function tambah_rekapan(Request $request){
+        $id_user = Auth::id();
+
+        $validated = $request->validate([
+            'id_provinsi' => 'required',
+            'id_kabupaten' => 'required',
+            'id_kecamatan' => 'required',
+            'id_tahun' => 'required',
+            'id_komoditi' => 'required',
+            'tbm' => 'required',
+            'tm' => 'required',
+            'tr' => 'required',
+            'jumlah' => 'required',
+            'produksi' => 'required',
+            'pekebun' => 'required',
+            'status' => 'required',
+            'keterangan' => 'required',
+        ]);
+
+        $produktivitas = $request->produksi / $request->tm;
+        $rekap = DB::table('rekapan')->insert([
+            'id_provinsi' => $request->id_provinsi,
+            'id_kabupaten' => $request->id_kabupaten,
+            'id_kecamatan' => $request->id_kecamatan,
+            'id_tahun' => $request->id_tahun,
+            'id_komoditi' => $request->id_komoditi,
+            'id_users' => $id_user,
+            'tbm' => $request->tbm,
+            'tm' => $request->tm,
+            'tr' => $request->tr,
+            'jumlah' => $request->jumlah,
+            'produksi' => $request->produksi,
+            'produktivitas' => $produktivitas,
+            'pekebun' => $request->pekebun,
+            'status' => $request->status,
+            'keterangan' => $request->keterangan,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Rekapan berhasil di input',
+            'data' => $rekap
+        ], Response::HTTP_OK);
+
+    }
     
+    public function update_rekapan(Request $request){
+        $id_user = Auth::id();
+
+        $validated = $request->validate([
+            'id_provinsi' => 'required',
+            'id_kabupaten' => 'required',
+            'id_kecamatan' => 'required',
+            'id_tahun' => 'required',
+            'id_komoditi' => 'required',
+            'tbm' => 'required',
+            'tm' => 'required',
+            'tr' => 'required',
+            'jumlah' => 'required',
+            'produksi' => 'required',
+            'pekebun' => 'required',
+            'status' => 'required',
+            'keterangan' => 'required',
+        ]);
+
+        $produktivitas = $request->produksi / $request->tm;
+        $rekap = DB::table('rekapan')->update([
+            'id_provinsi' => $request->id_provinsi,
+            'id_kabupaten' => $request->id_kabupaten,
+            'id_kecamatan' => $request->id_kecamatan,
+            'id_tahun' => $request->id_tahun,
+            'id_komoditi' => $request->id_komoditi,
+            'id_users' => $id_user,
+            'tbm' => $request->tbm,
+            'tm' => $request->tm,
+            'tr' => $request->tr,
+            'jumlah' => $request->jumlah,
+            'produksi' => $request->produksi,
+            'produktivitas' => $produktivitas,
+            'pekebun' => $request->pekebun,
+            'status' => $request->status,
+            'keterangan' => $request->keterangan,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Rekapan berhasil di diubah',
+            'data' => $rekap
+        ], Response::HTTP_OK);
+
+    }
 }

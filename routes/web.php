@@ -7,9 +7,11 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\KabupatenController;
 use App\Http\Controllers\KecamatanController;
+use App\Http\Controllers\KomoditiController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\StatusPengusahaanController;
+use App\Http\Controllers\TahunController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,5 +76,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/updatesemester/{id}', [SemesterController::class, 'update_semester'])->name('update.semester');
     Route::delete('/deletesemester/{id}', [SemesterController::class, 'delete_semester'])->name('delete.semester');
     
-
+    Route::get('/komoditi', [KomoditiController::class, 'index'])->name('komoditi.index');
+    Route::post('/add-komoditi', [KomoditiController::class, 'add_komoditi'])->name('add.komoditi');
+    Route::post('/updatekomoditi/{id}', [KomoditiController::class, 'update_komoditi'])->name('update.komoditi');
+    Route::delete('/deletekomoditi/{id}', [KomoditiController::class, 'delete_komoditi'])->name('delete.komoditi');
+    
+    Route::get('/tahun', [TahunController::class, 'index'])->name('tahun.index');
+    Route::post('/add-tahun', [TahunController::class, 'add_tahun'])->name('add.tahun');
+    Route::post('/updatetahun/{id}', [TahunController::class, 'update_tahun'])->name('update.tahun');
+    Route::delete('/deletetahun/{id}', [TahunController::class, 'delete_tahun'])->name('delete.tahun');
 });
