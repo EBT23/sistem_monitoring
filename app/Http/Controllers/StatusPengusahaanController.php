@@ -19,7 +19,7 @@ class StatusPengusahaanController extends Controller
         $data = DB::table('status_pengusahaan_tanaman')->insert([
             'status_pengusahaan_tanaman' => $request->status_pengusahaan_tanaman,
                 ]);
-        return redirect()->route('status_pengusahaan.index');
+        return redirect()->route('status_pengusahaan.index')->with('success', 'Data berhasil ditambahkan.');
 
     }
 
@@ -28,13 +28,13 @@ class StatusPengusahaanController extends Controller
             DB::table('status_pengusahaan_tanaman')->where('id', $id)->update([
                 'status_pengusahaan_tanaman' => $request->status_pengusahaan_tanaman,
             ]);
-            return redirect()->route('status_pengusahaan.index');
+            return redirect()->route('status_pengusahaan.index')->with('success', 'Data berhasil diubah.');
         }
 
    public function delete_status_pengusahaan($id)
     {
         DB::table('status_pengusahaan_tanaman')->where('id', $id)->delete();
         // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
-        return redirect()->route('status_pengusahaan.index');
+        return redirect()->route('status_pengusahaan.index')->with('success', 'Data berhasil dihapus.');
     }
 }

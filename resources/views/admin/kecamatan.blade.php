@@ -3,6 +3,7 @@
 
 <div class="row">
    <div class="col-md-12 col-lg-12">
+
       <div class="card">
          <div class="card-body">
             <form action="{{ route('add.kecamatan') }}" method="POST">
@@ -35,16 +36,19 @@
 
       <div class="row">
          <div class="col-md-12">
+            @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+               {{ session('success') }}
+               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
             <div class="card">
                <div class="card-header d-flex justify-content-between">
                   <div class="header-title">
-                     <h4 class="card-title">Bootstrap Datatables</h4>
+                     <h4 class="card-title">Data Kecamatan</h4>
                   </div>
                </div>
                <div class="card-body">
-                  <p>Images in Bootstrap are made responsive with <code>.img-fluid</code>. <code>max-width: 100%;</code>
-                     and <code>height: auto;</code> are applied to the image so that it scales with the parent element.
-                  </p>
                   <div class="table-responsive">
 
                      <table id="datatable" class="table table-striped" data-toggle="data-table">
@@ -69,8 +73,8 @@
                                     <form action="deletekecamatan/{{$kc->id }}" method="POST">
                                        @method('DELETE')
                                        @csrf
-                                       <button class="btn btn-danger m-md-2" type="submit"><i
-                                             class="fas fa-trash-alt">Hapus</i></button>
+                                       <button class="btn btn-danger m-md-2" type="submit"><i class="fas fa-trash-alt"
+                                             onclick="javascript: return confirm('Anda yakin akan menghapus ini? ')">Hapus</i></button>
                                     </form>
                                  </span>
                                  <span>

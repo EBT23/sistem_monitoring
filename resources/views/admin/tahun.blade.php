@@ -25,6 +25,12 @@
 
         <div class="row">
             <div class="col-md-12">
+                @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
@@ -66,7 +72,8 @@
                                                     @method('DELETE')
                                                     @csrf
                                                     <button class="btn btn-danger m-md-2" type="submit"><i
-                                                            class="fas fa-trash-alt">Hapus</i></button>
+                                                            class="fas fa-trash-alt"
+                                                            onclick="javascript: return confirm('Anda yakin akan menghapus ini? ')">Hapus</i></button>
                                                 </form>
                                             </span>
                                             <span>

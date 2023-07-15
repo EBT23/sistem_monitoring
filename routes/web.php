@@ -8,6 +8,7 @@ use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\KabupatenController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KomoditiController;
+use App\Http\Controllers\RekapanController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\StatusPengusahaanController;
@@ -38,6 +39,8 @@ Route::middleware(['auth'])->group(function () {
     
     Route::controller(AdminController::class)->group( function (){
         Route::get('/dashboard','index')->name('index');
+        Route::get('/chart','chartData')->name('chart.index');
+        Route::get('/areachart','areachartData')->name('chart.area');
     });
     
     Route::get('/provinsi', [ProvinsiController::class, 'provinsi'])->name('provinsi.index');
@@ -78,11 +81,17 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('/komoditi', [KomoditiController::class, 'index'])->name('komoditi.index');
     Route::post('/add-komoditi', [KomoditiController::class, 'add_komoditi'])->name('add.komoditi');
-    Route::post('/updatekomoditi/{id}', [KomoditiController::class, 'update_komoditi'])->name('update.komoditi');
+    // Route::post('/updatekomoditi/{id}', [KomoditiController::class, 'update_komoditi'])->name('update.komoditi');
+    Route::resource('update_komoditi', KomoditiController::class);
     Route::delete('/deletekomoditi/{id}', [KomoditiController::class, 'delete_komoditi'])->name('delete.komoditi');
     
     Route::get('/tahun', [TahunController::class, 'index'])->name('tahun.index');
     Route::post('/add-tahun', [TahunController::class, 'add_tahun'])->name('add.tahun');
     Route::post('/updatetahun/{id}', [TahunController::class, 'update_tahun'])->name('update.tahun');
     Route::delete('/deletetahun/{id}', [TahunController::class, 'delete_tahun'])->name('delete.tahun');
+
+    Route::get('/rekapan', [RekapanController::class, 'index'])->name('rekapan.index');
+    Route::get('/acc_rekapan/{id}', [RekapanController::class, 'acc'])->name('rekapan.acc');
+    Route::get('/batalkan_rekapan/{id}', [RekapanController::class, 'batalkan'])->name('rekapan.batalkan');
+    Route::get('/tolak_rekapan/{id}', [RekapanController::class, 'tolak'])->name('rekapan.tolak');
 });

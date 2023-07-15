@@ -19,7 +19,7 @@ class ProvinsiController extends Controller
         $data = DB::table('provinsi')->insert([
             'nama_provinsi' => $request->nama_provinsi,
                 ]);
-        return redirect()->route('provinsi.index');
+        return redirect()->route('provinsi.index')->with('success', 'Provinsi berhasil ditambahkan.');
 
     }
 
@@ -28,14 +28,14 @@ class ProvinsiController extends Controller
             DB::table('provinsi')->where('id', $id)->update([
                 'nama_provinsi' => $request->nama_provinsi,
             ]);
-            return redirect()->route('provinsi.index');
+            return redirect()->route('provinsi.index')->with('success', 'Provinsi berhasil diubah.');
         }
 
    public function delete_provinsi($id)
     {
         DB::table('provinsi')->where('id', $id)->delete();
         // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
-        return redirect()->route('provinsi.index');
+        return redirect()->route('provinsi.index')->with('success', 'Provinsi berhasil dihapus.');
     }
 
 }

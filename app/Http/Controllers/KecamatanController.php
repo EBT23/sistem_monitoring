@@ -21,7 +21,7 @@ class KecamatanController extends Controller
             'id_kabupaten' => $request->id_kabupaten,
             'nama_kecamatan' => $request->nama_kecamatan,
                 ]);
-        return redirect()->route('kecamatan.index');
+        return redirect()->route('kecamatan.index')->with('success', 'Kecamatan berhasil ditambah.');
 
     }
 
@@ -31,13 +31,13 @@ class KecamatanController extends Controller
                 'id_kabupaten' => $request->id_kabupaten,
                 'nama_kecamatan' => $request->nama_kecamatan,
             ]);
-            return redirect()->route('kecamatan.index');
+            return redirect()->route('kecamatan.index')->with('success', 'Kecamatan berhasil diubah.');
         }
 
    public function delete_kecamatan($id)
     {
         DB::table('kecamatan')->where('id', $id)->delete();
         // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
-        return redirect()->route('kecamatan.index');
+        return redirect()->route('kecamatan.index')->with('success', 'Kecamatan berhasil dihapus.');
     }
 }

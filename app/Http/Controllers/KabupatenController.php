@@ -21,7 +21,7 @@ class KabupatenController extends Controller
             'id_provinsi' => $request->id_provinsi,
             'nama_kabupaten' => $request->nama_kabupaten,
                 ]);
-        return redirect()->route('kabupaten.index');
+        return redirect()->route('kabupaten.index')->with('success', 'Kabupaten berhasil dihapus.');
 
     }
 
@@ -31,13 +31,13 @@ class KabupatenController extends Controller
                 'id_provinsi' => $request->id_provinsi,
                 'nama_kabupaten' => $request->nama_kabupaten,
             ]);
-            return redirect()->route('kabupaten.index');
+            return redirect()->route('kabupaten.index')->with('success', 'Kabupaten berhasil diubah.');
         }
 
    public function delete_kabupaten($id)
     {
         DB::table('kabupaten')->where('id', $id)->delete();
         // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
-        return redirect()->route('kabupaten.index');
+        return redirect()->route('kabupaten.index')->with('success', 'Kabupaten berhasil diubah.');
     }
 }

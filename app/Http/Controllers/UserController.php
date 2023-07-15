@@ -26,7 +26,7 @@ class UserController extends Controller
             'role' => $request->role,
             'is_active' => 1,
                 ]);
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('success', 'Role berhasil ditambah.');
 
     }
 
@@ -39,13 +39,13 @@ class UserController extends Controller
                 'role' => $request->role,
                 'is_active' => 1,    
             ]);
-            return redirect()->route('user.index');
+            return redirect()->route('user.index')->with('success', 'Role berhasil diubah.');;
         }
 
    public function delete_user($id)
     {
         DB::table('users')->where('id', $id)->delete();
         // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('success', 'Role berhasil dihapus.');
     }
 }

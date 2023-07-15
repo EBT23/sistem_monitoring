@@ -17,27 +17,48 @@ class KomoditiController extends Controller
     public function add_komoditi(Request $request){
 
         // dd($request);
-        $data = DB::table('komoditi')->insert([
+        $gambar = null;
+
+        if ($request->hasFile('gambar')) {
+            $image = $request->file('gambar');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $gambar = $imageName;
+        }
+        DB::table('komoditi')->insert([
             'id_status_pengusahaan_tanaman' => $request->id_status_pt,
             'nama_komoditi' => $request->nama_komoditi,
+            'gambar' => $gambar
                 ]);
-        return redirect()->route('komoditi.index');
+        return redirect()->route('komoditi.index')->with('success', 'Komoditi berhasil ditambahkan.');
 
     }
 
-    public function update_komoditi(Request $request,$id)
+    public function update(Request $request,$id)
         {
+                       
+            $gambar = null;
+            
+            if ($request->hasFile('gambar')) {
+                $image = $request->file('gambar');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('images'), $imageName);
+                $gambar = $imageName;
+            }
+            
             DB::table('komoditi')->where('id', $id)->update([
                 'id_status_pengusahaan_tanaman' => $request->id_status_pt,
                 'nama_komoditi' => $request->nama_komoditi,
+                'gambar' => $gambar
             ]);
-            return redirect()->route('komoditi.index');
+            
+            return redirect()->route('komoditi.index')->with('success', 'Komoditi berhasil diperbarui.');
         }
 
    public function delete_komoditi($id)
     {
         DB::table('komoditi')->where('id', $id)->delete();
         // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
-        return redirect()->route('komoditi.index');
+        return redirect()->route('komoditi.index')->with('success', 'Komoditi berhasil dihapus.');
     }
 }

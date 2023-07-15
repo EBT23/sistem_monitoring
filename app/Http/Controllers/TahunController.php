@@ -20,7 +20,7 @@ class TahunController extends Controller
             'tahun' => $request->tahun,
             'is_active' => 1,
                 ]);
-        return redirect()->route('tahun.index');
+        return redirect()->route('tahun.index')->with('success', 'Tahun berhasil ditambah.');
 
     }
 
@@ -29,13 +29,13 @@ class TahunController extends Controller
             DB::table('tahun')->where('id', $id)->update([
                 'tahun' => $request->tahun, 'is_active' => $request->is_active
             ]);
-            return redirect()->route('tahun.index');
+            return redirect()->route('tahun.index')->with('success', 'Tahun berhasil diubah.');
         }
 
    public function delete_tahun($id)
     {
         DB::table('tahun')->where('id', $id)->delete();
         // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
-        return redirect()->route('tahun.index');
+        return redirect()->route('tahun.index')->with('success', 'Tahun berhasil ditambah.');
     }
 }

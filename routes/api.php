@@ -29,4 +29,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/semester', [ApiAllController::class, 'semester']);
     Route::get('/rekapan', [ApiAllController::class, 'rekapan']); 
     Route::post('/tambah_rekapan', [ApiAllController::class, 'tambah_rekapan']); 
+    Route::get('/jumlah_produksi_by_komoditi', [ApiAllController::class, 'jumlah_produksi_by_komoditi']); 
+    Route::get('/luas_lahan_by_komoditi', [ApiAllController::class, 'luas_lahan_by_komoditi']); 
 });

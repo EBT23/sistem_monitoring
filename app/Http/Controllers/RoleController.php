@@ -10,7 +10,7 @@ class RoleController extends Controller
     public function index()
     {
         $role = DB::table('user_role')->get();
-        return view('admin.role', compact('role'));
+        return view('admin.role', compact('role'))->with('success', 'Role berhasil ditambah.');
     }
 
     public function add_role(Request $request){
@@ -28,14 +28,14 @@ class RoleController extends Controller
             DB::table('user_role')->where('id', $id)->update([
                 'role' => $request->role,
             ]);
-            return redirect()->route('role.index');
+            return redirect()->route('role.index')->with('success', 'Role berhasil diubah.');
         }
 
    public function delete_role($id)
     {
         DB::table('user_role')->where('id', $id)->delete();
         // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
-        return redirect()->route('role.index');
+        return redirect()->route('role.index')->with('success', 'Role berhasil dihapus.');
     }
 
 }

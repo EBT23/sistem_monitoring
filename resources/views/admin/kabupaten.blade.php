@@ -32,6 +32,12 @@
 
       <div class="row">
          <div class="col-md-12">
+            @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+               {{ session('success') }}
+               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
             <div class="card">
                <div class="card-header d-flex justify-content-between">
                   <div class="header-title">
@@ -67,7 +73,8 @@
                                     <form action="deletekabupaten/{{$kp->id }}" method="POST">
                                        @method('DELETE')
                                        @csrf
-                                       <button class="btn btn-danger m-md-2" type="submit"><i
+                                       <button class="btn btn-danger m-md-2" type="submit"
+                                          onclick="javascript: return confirm('Anda yakin akan menghapus ini? ')"><i
                                              class="fas fa-trash-alt">Hapus</i></button>
                                     </form>
                                  </span>

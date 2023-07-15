@@ -54,7 +54,9 @@ class ApiAllController extends Controller
         ], Response::HTTP_OK);
     }
     public function tahun() {
-        $tahun = DB::table('tahun')->get();
+        $tahun = DB::table('tahun')
+        ->where('is_active', 1)
+        ->get();
         return response()->json([
             'success' => true,
             'message' => 'Data tersedia',
@@ -151,7 +153,6 @@ class ApiAllController extends Controller
             'jumlah' => 'required',
             'produksi' => 'required',
             'pekebun' => 'required',
-            'status' => 'required',
             'keterangan' => 'required',
         ]);
 
@@ -170,7 +171,7 @@ class ApiAllController extends Controller
             'produksi' => $request->produksi,
             'produktivitas' => $produktivitas,
             'pekebun' => $request->pekebun,
-            'status' => $request->status,
+            'status' => 0,
             'keterangan' => $request->keterangan,
         ]);
 
@@ -180,5 +181,23 @@ class ApiAllController extends Controller
             'data' => $rekap
         ], Response::HTTP_OK);
 
+    }
+    public function jumlah_produksi_by_komoditi(){
+        $jumlah_produksi = DB::select("SELECT komoditi.id as id_komoditi, komoditi.nama_komoditi, SUM(rekapan.produksi) AS jumlah_produksi FROM `rekapan`, `komoditi` WHERE komoditi.id = rekapan.id_komoditi GROUP BY komoditi.id, komoditi.nama_komoditi");
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Jumlah Produksi Berdasarkan Komoditi',
+            'data' => $jumlah_produksi
+        ], Response::HTTP_OK);
+    }
+    public function luas_lahan_by_komoditi(){
+        $luas_lahan_by_komoditi = DB::select("SELECT komoditi.id as id_komoditi, komoditi.nama_komoditi, SUM(rekapan.jumlah) AS luas_area FROM `rekapan`, `komoditi` WHERE komoditi.id = rekapan.id_komoditi GROUP BY komoditi.id, komoditi.nama_komoditi");
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Luas Lahan Berdasarkan Komoditi',
+            'data' => $luas_lahan_by_komoditi
+        ], Response::HTTP_OK);
     }
 }
