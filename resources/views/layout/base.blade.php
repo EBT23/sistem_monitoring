@@ -365,64 +365,81 @@ myModal.addEventListener('shown.bs.modal', function () {
 })
   </script>
   <script>
-    fetch('{{ route("chart.index") }}')
-        .then(response => response.json())
-        .then(data => {
-            const labels = data.map(item => item.label);
-            const values = data.map(item => item.value);
+    function loadChartData() {
+      
+      const selectedTahun = document.getElementById('tahun').value;
+            const urlProduksi = selectedTahun ? `/chart-data/${selectedTahun}` : '/chart-data';
+            const urlArea = selectedTahun ? `/chart-area/${selectedTahun}` : '/chart-area';
 
-            const ctx = document.getElementById('pieChart').getContext('2d');
-            const chart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        data: values,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.5)',
-                            'rgba(54, 162, 235, 0.5)',
-                            'rgba(255, 206, 86, 0.5)',
-                            'rgba(75, 192, 192, 0.5)',
-                            'rgba(153, 102, 255, 0.5)',
-                        ],
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                }
-            });
-        });
-  </script>
-  <script>
-    fetch('{{ route("chart.area") }}')
-        .then(response => response.json())
-        .then(data => {
-            const labels = data.map(item => item.label);
-            const values = data.map(item => item.value);
+            fetch(urlProduksi)
+                .then(response => response.json())
+                .then(data => {
+                    // Hapus chart produksi lama sebelum membuat yang baru
+                    if (window.myChart) {
+                        window.myChart.destroy();
+                    }
 
-            const ctx = document.getElementById('areaChart').getContext('2d');
-            const chart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        data: values,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.5)',
-                            'rgba(54, 162, 235, 0.5)',
-                            'rgba(255, 206, 86, 0.5)',
-                            'rgba(75, 192, 192, 0.5)',
-                            'rgba(153, 102, 255, 0.5)',
-                        ],
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                }
-            });
-        });
+                    const labels = data.map(item => item.label);
+                    const values = data.map(item => item.value);
+
+                    const ctx = document.getElementById('pieChart').getContext('2d');
+                    window.myChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                data: values,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.5)',
+                                    'rgba(54, 162, 235, 0.5)',
+                                    'rgba(255, 206, 86, 0.5)',
+                                    'rgba(75, 192, 192, 0.5)',
+                                    'rgba(153, 102, 255, 0.5)',
+                                ],
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                        }
+                    });
+                });
+
+            fetch(urlArea)
+                .then(response => response.json())
+                .then(data => {
+                    // Hapus chart area lama sebelum membuat yang baru
+                    if (window.myChartArea) {
+                        window.myChartArea.destroy();
+                    }
+
+                    const labels = data.map(item => item.label);
+                    const values = data.map(item => item.value);
+
+                    const ctx = document.getElementById('areaChart').getContext('2d');
+                    window.myChartArea = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                data: values,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.5)',
+                                    'rgba(54, 162, 235, 0.5)',
+                                    'rgba(255, 206, 86, 0.5)',
+                                    'rgba(75, 192, 192, 0.5)',
+                                    'rgba(153, 102, 255, 0.5)',
+                                ],
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                        }
+                    });
+                });
+        }
+                loadChartData();
   </script>
 </body>
 

@@ -39,8 +39,8 @@ Route::middleware(['auth'])->group(function () {
     
     Route::controller(AdminController::class)->group( function (){
         Route::get('/dashboard','index')->name('index');
-        Route::get('/chart','chartData')->name('chart.index');
-        Route::get('/areachart','areachartData')->name('chart.area');
+        Route::get('/chart-data/{id}','chartData')->name('chart-data');
+        Route::get('/chart-area/{id}','areachartData')->name('chart-area');
     });
     
     Route::get('/provinsi', [ProvinsiController::class, 'provinsi'])->name('provinsi.index');

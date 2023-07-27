@@ -182,8 +182,9 @@ class ApiAllController extends Controller
         ], Response::HTTP_OK);
 
     }
-    public function jumlah_produksi_by_komoditi(){
-        $jumlah_produksi = DB::select("SELECT komoditi.id as id_komoditi, komoditi.nama_komoditi, SUM(rekapan.produksi) AS jumlah_produksi FROM `rekapan`, `komoditi` WHERE komoditi.id = rekapan.id_komoditi GROUP BY komoditi.id, komoditi.nama_komoditi");
+    public function jumlah_produksi_by_komoditi(Request $request){
+        $id_tahun = $request->id;
+        $jumlah_produksi = DB::select("SELECT komoditi.id as id_komoditi, komoditi.nama_komoditi, SUM(rekapan.produksi) AS jumlah_produksi, tahun.tahun FROM `rekapan`, `komoditi`, tahun WHERE tahun.id = rekapan.id_tahun AND komoditi.id = rekapan.id_komoditi AND rekapan.id_tahun = $id_tahun  GROUP BY komoditi.id, komoditi.nama_komoditi, tahun.tahun");
 
         return response()->json([
             'success' => true,
@@ -191,8 +192,9 @@ class ApiAllController extends Controller
             'data' => $jumlah_produksi
         ], Response::HTTP_OK);
     }
-    public function luas_lahan_by_komoditi(){
-        $luas_lahan_by_komoditi = DB::select("SELECT komoditi.id as id_komoditi, komoditi.nama_komoditi, SUM(rekapan.jumlah) AS luas_area FROM `rekapan`, `komoditi` WHERE komoditi.id = rekapan.id_komoditi GROUP BY komoditi.id, komoditi.nama_komoditi");
+    public function luas_lahan_by_komoditi(Request $request){
+        $id_tahun = $request->id;
+        $luas_lahan_by_komoditi = DB::select("SELECT komoditi.id as id_komoditi, komoditi.nama_komoditi, SUM(rekapan.jumlah) AS luas_area, tahun.tahun FROM `rekapan`, `komoditi`, tahun WHERE tahun.id = rekapan.id_tahun  AND komoditi.id = rekapan.id_komoditi AND rekapan.id_tahun = $id_tahun GROUP BY komoditi.id, komoditi.nama_komoditi, tahun.tahun");
 
         return response()->json([
             'success' => true,

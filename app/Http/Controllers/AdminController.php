@@ -17,11 +17,12 @@ class AdminController extends Controller
         $total_kecamatan=$total_kecamatan[0]->jumlah_kecamatan;
         $total_komoditi = DB::select("SELECT COUNT(komoditi.nama_komoditi) AS jumlah_komoditi FROM komoditi, status_pengusahaan_tanaman WHERE komoditi.id_status_pengusahaan_tanaman = status_pengusahaan_tanaman.id ");
         $total_komoditi = $total_komoditi[0]->jumlah_komoditi;
-        return view('index', $data, compact('total_kabupaten', 'total_kecamatan', 'total_komoditi'));
+        $tahun = DB::select('SELECT * FROM tahun');
+        return view('index', $data, compact('total_kabupaten', 'total_kecamatan', 'total_komoditi', 'tahun'));
     }
-    public function chartData()
+    public function chartData($id)
     {
-        $jumlah_produksi = DB::select("SELECT komoditi.nama_komoditi, SUM(rekapan.produksi) AS jumlah_produksi FROM `rekapan`, `komoditi` WHERE komoditi.id = rekapan.id_komoditi GROUP BY komoditi.nama_komoditi");
+        $jumlah_produksi = DB::select("SELECT komoditi.nama_komoditi, SUM(rekapan.produksi) AS jumlah_produksi FROM `rekapan`, `komoditi` WHERE komoditi.id = rekapan.id_komoditi AND rekapan.id_tahun = $id GROUP BY komoditi.nama_komoditi");
 
 
         $data = [];
@@ -35,9 +36,9 @@ class AdminController extends Controller
 
         return response()->json($data);
     }
-    public function areachartData()
+    public function areachartData($id)
     {
-        $luas_area = DB::select("SELECT komoditi.id as id_komoditi, komoditi.nama_komoditi, SUM(rekapan.jumlah) AS luas_area FROM `rekapan`, `komoditi` WHERE komoditi.id = rekapan.id_komoditi GROUP BY komoditi.id, komoditi.nama_komoditi");
+        $luas_area = DB::select("SELECT komoditi.id as id_komoditi, komoditi.nama_komoditi, SUM(rekapan.jumlah) AS luas_area FROM `rekapan`, `komoditi` WHERE komoditi.id = rekapan.id_komoditi  AND rekapan.id_tahun = $id GROUP BY komoditi.id, komoditi.nama_komoditi");
 
 
         $data = [];
