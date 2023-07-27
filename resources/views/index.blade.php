@@ -86,13 +86,6 @@
          </div>
       </div>
    </div>
-   <div class="my-3">
-      <select class="form-select" id="tahun1" name="tahun1" onchange="loadChartData1()">
-         @foreach ($tahun as $t)
-         <option value="{{ $t->id }}">{{ $t->tahun }}</option>
-         @endforeach
-      </select>
-   </div>
    <div class="col-md-12 col-lg-12">
       <div class="row">
          <div class="col-md-12">
