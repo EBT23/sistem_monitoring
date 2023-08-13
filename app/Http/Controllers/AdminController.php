@@ -22,7 +22,7 @@ class AdminController extends Controller
     }
     public function chartData($id)
     {
-        $jumlah_produksi = DB::select("SELECT komoditi.nama_komoditi, SUM(rekapan.produksi) AS jumlah_produksi FROM `rekapan`, `komoditi` WHERE komoditi.id = rekapan.id_komoditi AND rekapan.id_tahun = $id GROUP BY komoditi.nama_komoditi");
+        $jumlah_produksi = DB::select("SELECT komoditi.nama_komoditi, SUM(rekapan.produksi) AS jumlah_produksi FROM `rekapan`, `komoditi` WHERE komoditi.id = rekapan.id_komoditi AND rekapan.id_tahun = $id AND rekapan.status = 1 GROUP BY komoditi.nama_komoditi");
 
 
         $data = [];
@@ -38,7 +38,7 @@ class AdminController extends Controller
     }
     public function areachartData($id)
     {
-        $luas_area = DB::select("SELECT komoditi.id as id_komoditi, komoditi.nama_komoditi, SUM(rekapan.jumlah) AS luas_area FROM `rekapan`, `komoditi` WHERE komoditi.id = rekapan.id_komoditi  AND rekapan.id_tahun = $id GROUP BY komoditi.id, komoditi.nama_komoditi");
+        $luas_area = DB::select("SELECT komoditi.id as id_komoditi, komoditi.nama_komoditi, SUM(rekapan.jumlah) AS luas_area FROM `rekapan`, `komoditi` WHERE komoditi.id = rekapan.id_komoditi  AND rekapan.id_tahun = $id AND rekapan.status = 1 GROUP BY komoditi.id, komoditi.nama_komoditi");
 
 
         $data = [];

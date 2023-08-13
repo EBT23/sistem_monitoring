@@ -7,7 +7,7 @@
   <title>Sistem Monitoring</title>
 
   <!-- Favicon -->
-  <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}" />
+  <link rel="shortcut icon" href="{{ asset('assets/images/logo-kalteng.png') }}" />
 
   <!-- Library / Plugin Css Build -->
   <link rel="stylesheet" href="{{ asset('assets/css/core/libs.min.css') }}" />
