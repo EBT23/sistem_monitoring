@@ -94,4 +94,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/acc_rekapan/{id}', [RekapanController::class, 'acc'])->name('rekapan.acc');
     Route::get('/batalkan_rekapan/{id}', [RekapanController::class, 'batalkan'])->name('rekapan.batalkan');
     Route::get('/tolak_rekapan/{id}', [RekapanController::class, 'tolak'])->name('rekapan.tolak');
+    Route::get('/getDataByKabupaten', [RekapanController::class, 'getDataByKabupaten']);
+    Route::delete('/deleterekapan/{id}', [RekapanController::class, 'deleterekapan'])->name('delete.rekapan');
 });

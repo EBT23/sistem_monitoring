@@ -3,6 +3,7 @@
 
 <div class="row">
     <div class="col-md-12 col-lg-12">
+
         <div class="row">
             <div class="col-md-12">
                 @if(session('success'))
@@ -20,9 +21,8 @@
                     <div class="card-body">
                         <label for="selectKabupaten">Pilih Kabupaten:</label>
                         <select id="selectKabupaten" class="form-control">
-                            <option value="">Semua Kabupaten</option>
                             @foreach ($kabupaten as $k)
-                            <option value="{{ $k->nama_kabupaten }}">{{ $k->nama_kabupaten }}</option>
+                            <option value="kabupaten1">{{ $k->nama_kabupaten }}</option>
                             @endforeach
                         </select>
                         <div class="table-responsive">
@@ -52,7 +52,8 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($rekapan as $index => $pr )
-                                    <tr class="data-row">
+                                    <tr>
+
                                         <td>{{ $index+1 }}</td>
                                         <td>{{ $pr->nama_provinsi }}</td>
                                         <td>{{ $pr->nama_kabupaten }}</td>
@@ -70,6 +71,7 @@
                                         <td>{{ $pr->pekebun }}</td>
                                         @if($pr->status == 1)
                                         <td><span class="badge text-bg-success">Verified</span></td>
+
                                         @elseif($pr->status == 2)
                                         <td><span class="badge text-bg-danger">No Verified</span></td>
                                         @else
@@ -117,33 +119,34 @@
                                     </tr>
                                     @endforeach
                                 </tbody>
+
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
-</div>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const selectKabupaten = document.getElementById("selectKabupaten");
-        const dataRows = document.querySelectorAll(".data-row");
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const selectKabupaten = document.getElementById("selectKabupaten");
+            const dataRows = document.querySelectorAll(".data-row");
 
-        selectKabupaten.addEventListener("change", function () {
-            const selectedKabupaten = selectKabupaten.value;
+            selectKabupaten.addEventListener("change", function () {
+                const selectedKabupaten = selectKabupaten.value;
 
-            dataRows.forEach(function (row) {
-                const kabupatenCell = row.querySelector("td:nth-child(3)"); // Ganti dengan indeks kolom yang sesuai
-                if (!selectedKabupaten || kabupatenCell.textContent === selectedKabupaten) {
-                    row.style.display = "table-row";
-                } else {
-                    row.style.display = "none";
-                }
+                dataRows.forEach(function (row) {
+                    const kabupatenCell = row.querySelector("td:nth-child(3)"); // Ganti dengan indeks kolom yang sesuai
+                    if (!selectedKabupaten || kabupatenCell.textContent === selectedKabupaten) {
+                        row.style.display = "table-row";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
             });
         });
-    });
-</script>
-
+    </script>
+</div>
 
 @endsection
